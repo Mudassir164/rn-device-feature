@@ -36,3 +36,7 @@ export default function App() {
 // git remote add origin https://github.com/Mudassir164/rn-device-feature.git
 // git branch -M main
 // git push -u origin main
+// git push
+// git add .
+// git status
+// git commit -m 'added all file'
