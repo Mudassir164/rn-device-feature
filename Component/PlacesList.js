@@ -16,6 +16,7 @@ const PlacesList = ({ Places }) => {
               placeId: item.id,
             });
           }}
+          id={item.id}
           image={item.image}
           name={item.name}
           address={item.address}

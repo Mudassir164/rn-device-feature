@@ -8,7 +8,7 @@ import {
 import Colors from "../Constant/Colors";
 import OutlineButton from "../UI/OutlineButton";
 
-const ImagePicker = () => {
+const ImagePicker = ({ onTakeImage }) => {
   const [CameraPermissonInformation, requestPermission] =
     useCameraPermissions();
   const [PickedImage, setPickedImage] = useState(null);
@@ -42,9 +42,10 @@ const ImagePicker = () => {
 
     if (!pickImage.cancelled) {
       setPickedImage(pickImage.uri);
+      onTakeImage(pickImage.uri);
     }
   }
-  console.log(PickedImage);
+
   let ImagePreview = (
     <Text style={styles.ImagePreviewText}>No Image Selected</Text>
   );
@@ -75,6 +76,8 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     justifyContent: "center",
     alignItems: "center",
+    overflow: "hidden",
+    borderRadius: 10,
   },
 
   ImagePreview: {

@@ -1,10 +1,35 @@
-import React from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useEffect } from "react";
+import { View, Text, Image, StyleSheet, Pressable, Alert } from "react-native";
 import Colors from "../Constant/Colors";
+import { deletePlace } from "../Utility/db";
 
 const PlaceItem = (props) => {
+  // async function deleteHandler() {
+  //   Alert.alert(
+  //     "Are you sure you want to delete this place?",
+  //     "",
+  //     [
+  //       { text: "No", style: "default" },
+  //       {
+  //         text: "Yes",
+  //         onPress: () => {
+  //           deletePlace(props.placeId);
+  //         },
+  //       },
+  //     ],
+  //     { cancelable: false }
+  //   );
+  // }
+  // const deleteHandler = async () => {
+  //   await deletePlace(props.id);
+  // };
+
   return (
-    <TouchableOpacity onPress={props.onSelect} style={styles.placeItem}>
+    <Pressable
+      onPress={props.onSelect}
+      style={styles.placeItem}
+      // onLongPress={deleteHandler}
+    >
       <Image
         style={styles.image}
         source={{
@@ -16,23 +41,26 @@ const PlaceItem = (props) => {
         <Text style={styles.title}>{props.name}</Text>
         <Text style={styles.address}>{props.address}</Text>
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
   placeItem: {
     borderBottomColor: "#ccc",
-    borderBottomWidth: 1,
-    paddingVertical: 15,
-    paddingHorizontal: 30,
+    borderBottomWidth: 2,
+    // paddingVertical: 15,
+    // paddingHorizontal: 30,
     flexDirection: "row",
     alignItems: "center",
+    backgroundColor: Colors.primary500,
+    marginVertical: 10,
+    marginHorizontal: 5,
   },
   image: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
+    width: 80,
+    height: "100%",
+    borderRadius: 10,
     backgroundColor: "#ccc",
     borderColor: Colors.accent500,
     borderWidth: 1,
@@ -40,16 +68,19 @@ const styles = StyleSheet.create({
   infoContainer: {
     marginLeft: 25,
     width: 250,
+    padding: 10,
     justifyContent: "center",
     alignItems: "flex-start",
+    flexWrap: "wrap",
   },
   title: {
-    color: "black",
+    color: Colors.gray700,
     fontSize: 18,
+    fontWeight: "bold",
     marginBottom: 5,
   },
   address: {
-    color: "#666",
+    color: Colors.gray700,
     fontSize: 16,
   },
 });

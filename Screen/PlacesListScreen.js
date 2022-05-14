@@ -1,8 +1,10 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useEffect, useState } from "react";
 import PlacesList from "../Component/PlacesList";
 import IconButton from "../UI/IconButton";
 import Colors from "../Constant/Colors";
+import { useIsFocused } from "@react-navigation/native";
+import { fetchPlaces } from "../Utility/db";
 
 const place = [
   {
@@ -28,7 +30,20 @@ const place = [
   },
 ];
 
-const PlacesListScreen = ({ navigation }) => {
+const PlacesListScreen = ({ navigation, route }) => {
+  const [places, setPlaces] = useState([]);
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    async function LoadPlace() {
+      const places = await fetchPlaces();
+      setPlaces(places);
+    }
+    if (isFocused) {
+      LoadPlace();
+      // setPlaces((currPlaces) => [...currPlaces, route.params.place]);
+    }
+  }, [isFocused]);
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => {
@@ -48,7 +63,7 @@ const PlacesListScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <PlacesList Places={place} />
+      <PlacesList Places={places} />
     </View>
   );
 };

@@ -1,9 +1,10 @@
 class Place {
-  constructor(name, image, address, location) {
+  constructor(name, image, location, id) {
     this.name = name;
     this.image = image;
-    this.address = address;
-    this.location = location;
-    id: new Date().toString() + Math.random().toString();
+    this.address = location.address;
+    this.location = { lat: location.latitude, lng: location.longitude };
+    this.id = id;
   }
 }
+export default Place;
